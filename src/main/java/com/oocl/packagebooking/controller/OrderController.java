@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class OrderController {
@@ -26,6 +27,12 @@ public class OrderController {
             return ResponseEntity.ok(newOrder);
         }
         return ResponseEntity.ok("The parking lot is full");
+    }
+
+    @GetMapping("/orders")
+    public ResponseEntity getOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return ResponseEntity.ok(orders);
     }
 }
 

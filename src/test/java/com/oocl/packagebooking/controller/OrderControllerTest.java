@@ -14,10 +14,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import javax.transaction.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -46,6 +46,24 @@ public class OrderControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.orderNumber").value("201907240002"));
+    }
+
+    @Test
+    @Transactional
+    public void should_all_the_orders_when_query_orders() throws Exception {
+        mockMvc.perform(get("/orders"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json("[\n" +
+                        "    {\n" +
+                        "        \"id\": 1,\n" +
+                        "        \"orderNumber\": \"201907240001\",\n" +
+                        "        \"recipient\": null,\n" +
+                        "        \"phone\": null,\n" +
+                        "        \"status\": 1,\n" +
+                        "        \"pickupTime\": 1564019566295\n" +
+                        "    }\n" +
+                        "]"));
     }
 
 }
