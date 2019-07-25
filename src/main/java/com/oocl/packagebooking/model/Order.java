@@ -3,29 +3,31 @@ package com.oocl.packagebooking.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@Entity(name = "booking_order")
 public class Order {
     @Id
     @GeneratedValue
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
+    private String orderNumber;
+
     private String recipient;
 
-    @Column(nullable = false)
     private String phone;
 
     @Column(nullable = false)
     private int status;
 
     @Column(nullable = false)
-    private long startTime;
+    private long pickupTime;
 
-    public Order(String recipient, String phone, int status, long startTime) {
+    public Order(String orderNumber, String recipient, String phone, int status, long pickupTime) {
+        this.orderNumber = orderNumber;
         this.recipient = recipient;
         this.phone = phone;
         this.status = status;
-        this.startTime = startTime;
+        this.pickupTime = pickupTime;
     }
 
     public Order() {
@@ -63,12 +65,20 @@ public class Order {
         this.status = status;
     }
 
-    public long getStartTime() {
-        return startTime;
+    public long getPickupTime() {
+        return pickupTime;
     }
 
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
+    public void setPickupTime(long pickupTime) {
+        this.pickupTime = pickupTime;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 }
 
