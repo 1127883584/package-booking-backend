@@ -29,6 +29,11 @@ public class Order {
         this.pickupTime = pickupTime;
     }
 
+    public Order(int status, long pickupTime) {
+        this.status = status;
+        this.pickupTime = pickupTime;
+    }
+
     public Order() {
     }
 

@@ -27,12 +27,12 @@ public class OrderController {
         if (newOrder != null){
             return ResponseEntity.ok(newOrder);
         }
-        return ResponseEntity.ok("The parking lot is full");
+        return ResponseEntity.ok("order is exception");
     }
 
     @GetMapping("/orders")
     public ResponseEntity getOrders() {
-        List<Order> orders = orderRepository.findAll();
+        List<Order> orders = orderService.getAllOrders();
         return ResponseEntity.ok(orders);
     }
 
