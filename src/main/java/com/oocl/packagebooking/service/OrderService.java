@@ -19,4 +19,10 @@ public class OrderService {
         System.out.println(newOrder);
         return newOrder;
     }
+
+    public Order updateOrder(Order order){
+        Order newOrder = orderRepository.saveAndFlush(order);
+        System.out.println(newOrder);
+        return newOrder;
+    }
 }

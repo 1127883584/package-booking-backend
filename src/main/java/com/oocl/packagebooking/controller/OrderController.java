@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8083/")
 public class OrderController {
     @Autowired
     private OrderRepository orderRepository;
@@ -33,6 +34,12 @@ public class OrderController {
     public ResponseEntity getOrders() {
         List<Order> orders = orderRepository.findAll();
         return ResponseEntity.ok(orders);
+    }
+
+    @PutMapping("/orders/{id}")
+    public ResponseEntity createParkingOrders(@PathVariable int id, @RequestBody Order order) {
+        Order updatedOrder = orderService.updateOrder(order);
+        return ResponseEntity.ok(updatedOrder);
     }
 }
 
