@@ -71,50 +71,25 @@ public class OrderControllerTest {
     @Test
     @Transactional
     public void should_return_the_updated_order_when_storage_order_by_id() throws Exception {
+        Order orderOne = new Order(1, 1000L);
+        given(orderService.updateOrderById(any(Order.class))).willReturn(orderOne);
         mockMvc.perform(put("/orders/1")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\n" +
-                        "    \"id\": 1,\n" +
-                        "    \"orderNumber\": \"201907240001\",\n" +
-                        "    \"recipient\": \"xiaoming\",\n" +
-                        "    \"phone\": \"13165452184\",\n" +
-                        "    \"status\": 2,\n" +
-                        "    \"pickupTime\": 1564019566295\n" +
-                        "}"))
-                .andDo(print())
+                .content(objectMapper.writeValueAsString(orderOne)))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\n" +
-                        "    \"id\": 1,\n" +
-                        "    \"orderNumber\": \"201907240001\",\n" +
-                        "    \"recipient\": \"xiaoming\",\n" +
-                        "    \"phone\": \"13165452184\",\n" +
-                        "    \"status\": 2,\n" +
-                        "    \"pickupTime\": 1564019566295\n" +
-                        "}"));
+                .andExpect(jsonPath("$.status").value(1));
     }
 
     @Test
     @Transactional
     public void should_return_the_updated_order_when_storage_order_by_order_number() throws Exception {
+        Order orderOne = new Order(1, 1000L);
+        given(orderService.updateOrderByOrderNumber(any(Order.class))).willReturn(orderOne);
         mockMvc.perform(put("/orders?orderNumber=201907240001")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{\n" +
-                        "    \"orderNumber\": \"201907240001\",\n" +
-                        "    \"recipient\": \"xiaoming\",\n" +
-                        "    \"phone\": \"13165452184\",\n" +
-                        "    \"status\": 2,\n" +
-                        "    \"pickupTime\": 1564019566295\n" +
-                        "}"))
-                .andDo(print())
+                .content(objectMapper.writeValueAsString(orderOne)))
                 .andExpect(status().isOk())
-                .andExpect(content().json("{\n" +
-                        "    \"id\": 1,\n" +
-                        "    \"orderNumber\": \"201907240001\",\n" +
-                        "    \"recipient\": \"xiaoming\",\n" +
-                        "    \"phone\": \"13165452184\",\n" +
-                        "    \"status\": 2,\n" +
-                        "    \"pickupTime\": 1564019566295\n" +
-                        "}"));
+                .andExpect(jsonPath("$.status").value(1));
     }
 
 }
