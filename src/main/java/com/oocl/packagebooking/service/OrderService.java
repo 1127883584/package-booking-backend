@@ -20,9 +20,17 @@ public class OrderService {
         return newOrder;
     }
 
-    public Order updateOrder(Order order){
+    public Order updateOrderById(Order order){
         Order newOrder = orderRepository.saveAndFlush(order);
         System.out.println(newOrder);
+        return newOrder;
+    }
+
+    public Order updateOrderByOrderNumber(Order order){
+        Order orderTemp = orderRepository.findByOrderNumber(order.getOrderNumber());
+        order.setId(orderTemp.getId());
+        Order newOrder = orderRepository.saveAndFlush(order);
+        System.out.println(newOrder.getOrderNumber());
         return newOrder;
     }
 }

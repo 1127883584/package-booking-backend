@@ -37,8 +37,14 @@ public class OrderController {
     }
 
     @PutMapping("/orders/{id}")
-    public ResponseEntity createParkingOrders(@PathVariable int id, @RequestBody Order order) {
-        Order updatedOrder = orderService.updateOrder(order);
+    public ResponseEntity updateOrdersById(@PathVariable int id, @RequestBody Order order) {
+        Order updatedOrder = orderService.updateOrderById(order);
+        return ResponseEntity.ok(updatedOrder);
+    }
+
+    @PutMapping("/orders")
+    public ResponseEntity updateOrdersByOrderNumber(@RequestParam String orderNumber, @RequestBody Order order) {
+        Order updatedOrder = orderService.updateOrderByOrderNumber(order);
         return ResponseEntity.ok(updatedOrder);
     }
 }

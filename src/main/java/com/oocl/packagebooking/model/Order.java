@@ -19,7 +19,6 @@ public class Order {
     @Column(nullable = false)
     private int status;
 
-    @Column(nullable = false)
     private long pickupTime;
 
     public Order(String orderNumber, String recipient, String phone, int status, long pickupTime) {
